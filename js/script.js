@@ -30,7 +30,44 @@ methodGroups.forEach((group) => {
   });
 });
 
-const form = document.querySelector(".contact-form");
+const quoteCarousel = document.querySelector(".quote-carousel");
+if (quoteCarousel) {
+  const viewport = quoteCarousel.querySelector(".quote-viewport");
+  const track = quoteCarousel.querySelector(".quote-track");
+  const cards = [...quoteCarousel.querySelectorAll(".quote-card")];
+  const prev = quoteCarousel.querySelector(".quote-nav-prev");
+  const next = quoteCarousel.querySelector(".quote-nav-next");
+  let index = 0;
+
+  const visibleCount = () => (window.matchMedia("(max-width: 900px)").matches ? 1 : 3);
+
+  const maxIndex = () => Math.max(0, cards.length - visibleCount());
+
+  const cardStep = () => {
+    const card = cards[0];
+    const styles = getComputedStyle(track);
+    const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
+    return card.getBoundingClientRect().width + gap;
+  };
+
+  const update = () => {
+    index = Math.min(index, maxIndex());
+    track.style.transform = `translateX(-${index * cardStep()}px)`;
+    prev.disabled = index <= 0;
+    next.disabled = index >= maxIndex();
+  };
+
+  prev.addEventListener("click", () => {
+    index = Math.max(0, index - 1);
+    update();
+  });
+  next.addEventListener("click", () => {
+    index = Math.min(maxIndex(), index + 1);
+    update();
+  });
+  window.addEventListener("resize", update);
+  update();
+}
 if (form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -45,8 +82,11 @@ if (form) {
       `Message: ${data.get("message") || ""}`,
     ].join("\n");
 
-    // Placeholder until backend / form service is wired
-    window.alert("Thanks — inquiry captured locally for now.\n\n" + summary);
-    form.reset();
+    window.location.href =
+      "mailto:sbush2860@gmail.com" +
+      "?subject=" +
+      encodeURIComponent("Blue Labs Learning inquiry") +
+      "&body=" +
+      encodeURIComponent(summary);
   });
 }

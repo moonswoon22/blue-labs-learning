@@ -245,6 +245,13 @@ p {
   filter: grayscale(1);
 }
 
+.hero-polaroid {
+  width: min(100%, 420px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 22px rgba(18, 20, 26, 0.16));
+}
+
 /* Validation */
 .validation {
   padding: 0.35rem 0 2rem;
@@ -741,9 +748,9 @@ p {
 /* Tutor — copy left, photo right */
 .tutor-panel {
   display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: 1.5rem;
-  align-items: center;
+  grid-template-columns: 1fr minmax(220px, 280px);
+  gap: 1.75rem;
+  align-items: start;
   padding: 1.6rem 1.5rem;
   border-radius: var(--radius);
   background: var(--white);
@@ -751,6 +758,13 @@ p {
   box-shadow: var(--shadow);
   max-width: none;
   width: 100%;
+}
+
+.tutor-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 22px rgba(18, 20, 26, 0.16));
 }
 
 .photo-placeholder {
@@ -780,12 +794,29 @@ p {
   color: var(--blueprint);
 }
 
+.tutor-copy p:not(.tutor-role) {
+  margin: 0.7rem 0 0;
+}
+
 /* Testimonials */
-.quote-grid {
+.quote-carousel {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.65rem;
+  align-items: center;
   width: 100%;
+}
+
+.quote-viewport {
+  overflow: hidden;
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.quote-track {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.4s ease;
 }
 
 .quote-card {
@@ -795,6 +826,8 @@ p {
   background: var(--white);
   border: 1px solid rgba(18, 20, 26, 0.12);
   box-shadow: var(--shadow);
+  flex: 0 0 calc((100cqi - 2rem) / 3);
+  min-width: 0;
 }
 
 .quote-card p {
@@ -809,6 +842,32 @@ p {
   color: var(--ink-soft);
   font-size: 0.9rem;
   font-weight: 650;
+}
+
+.quote-nav {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(18, 20, 26, 0.22);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 1.85rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0 0 0.15rem;
+  box-shadow: var(--shadow);
+}
+
+.quote-nav:hover:not(:disabled) {
+  border-color: var(--blueprint);
+  color: var(--blueprint);
+}
+
+.quote-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 /* Contact — full shell width after study materials */
@@ -890,6 +949,17 @@ p {
   margin: 0.75rem 0 0;
   color: var(--ink-soft);
   font-size: 0.92rem;
+}
+
+.form-note a {
+  color: var(--blueprint);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.form-note a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* Footer */
@@ -1000,11 +1070,14 @@ p {
   .hero-layout,
   .stage-grid,
   .pillar-grid,
-  .quote-grid,
   .form-grid,
   .band-grid,
   .tutor-panel {
     grid-template-columns: 1fr;
+  }
+
+  .quote-card {
+    flex-basis: 100cqi;
   }
 
   .choice-row {
@@ -1012,8 +1085,9 @@ p {
   }
 
   .band-grid .photo-placeholder,
-  .tutor-panel .photo-placeholder {
-    max-width: 220px;
+  .tutor-panel .photo-placeholder,
+  .tutor-panel .tutor-photo {
+    max-width: 280px;
     justify-self: start;
   }
 }
@@ -1023,7 +1097,7 @@ p {
     scroll-behavior: auto;
   }
 
-  .btn:hover {
-    transform: none;
+  .quote-track {
+    transition: none;
   }
 }
