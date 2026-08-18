@@ -442,12 +442,27 @@ p {
   object-fit: contain;
 }
 
+.method-path-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .method-path-title {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.2;
-  max-width: 9ch;
+  max-width: 14ch;
+}
+
+.method-path-blurb {
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  max-width: 16ch;
 }
 
 .method-detail-list {
@@ -515,6 +530,19 @@ p {
 .method-detail-list .pillar-note a {
   font-weight: 600;
   color: rgba(31, 95, 139, 0.85);
+}
+
+.method-research-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 700;
+  margin: 2.5rem 0 0.45rem;
+}
+
+.method-research-lead {
+  margin: 0 0 1.25rem;
+  max-width: 40rem;
+  color: var(--ink-soft);
 }
 
 /* Methods page accordion */
@@ -745,10 +773,10 @@ p {
   width: 100%;
 }
 
-/* Tutor — copy left, photo right */
+/* Tutor — photo left, copy right */
 .tutor-panel {
   display: grid;
-  grid-template-columns: 1fr minmax(220px, 280px);
+  grid-template-columns: minmax(220px, 280px) 1fr;
   gap: 1.75rem;
   align-items: start;
   padding: 1.6rem 1.5rem;
@@ -1063,7 +1091,12 @@ p {
     gap: 0.75rem;
   }
 
-  .method-path-title {
+  .method-path-copy {
+    align-items: start;
+  }
+
+  .method-path-title,
+  .method-path-blurb {
     max-width: none;
   }
 
@@ -1074,6 +1107,16 @@ p {
   .band-grid,
   .tutor-panel {
     grid-template-columns: 1fr;
+  }
+
+  .hero-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .hero-art {
+    order: -1;
   }
 
   .quote-card {
